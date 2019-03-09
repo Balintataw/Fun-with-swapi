@@ -1814,6 +1814,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1909,6 +1911,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return getNextSwapiPeople;
+    }(),
+    getPrevSwapiPeople: function () {
+      var _getPrevSwapiPeople = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var people;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                this.pageCount--;
+                if (this.pageCount <= 1) this.pageCount == 1;
+                _context3.prev = 2;
+                _context3.next = 5;
+                return _js_api__WEBPACK_IMPORTED_MODULE_1__["default"].getNextSwapiPeople(this.pageCount);
+
+              case 5:
+                people = _context3.sent;
+                console.log("Prev", people);
+                this.people = people.data.results;
+                this.loading = false;
+                _context3.next = 15;
+                break;
+
+              case 11:
+                _context3.prev = 11;
+                _context3.t0 = _context3["catch"](2);
+                this.loading = false;
+                throw new Error(_context3.t0);
+
+              case 15:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[2, 11]]);
+      }));
+
+      function getPrevSwapiPeople() {
+        return _getPrevSwapiPeople.apply(this, arguments);
+      }
+
+      return getPrevSwapiPeople;
     }()
   }
 });
@@ -27291,7 +27336,7 @@ var render = function() {
               { staticClass: "card" },
               [
                 _c("div", { staticClass: "card-header" }, [
-                  _vm._v("Load up some swapi data ")
+                  _vm._v("Dramatis Personae")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -27316,16 +27361,36 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c(
-                  "b-button",
-                  {
-                    attrs: { variant: "success" },
-                    on: {
-                      click: function($event) {
-                        return _vm.getNextSwapiPeople()
-                      }
-                    }
-                  },
-                  [_vm._v("Button")]
+                  "b-row",
+                  { staticClass: "justify-content-md-center" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        attrs: { variant: "success" },
+                        on: {
+                          click: function($event) {
+                            return _vm.getPrevSwapiPeople()
+                          }
+                        }
+                      },
+                      [_vm._v("Prev")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-button",
+                      {
+                        attrs: { variant: "success" },
+                        on: {
+                          click: function($event) {
+                            return _vm.getNextSwapiPeople()
+                          }
+                        }
+                      },
+                      [_vm._v("Next")]
+                    )
+                  ],
+                  1
                 )
               ],
               1

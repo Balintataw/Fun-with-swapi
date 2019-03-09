@@ -11,7 +11,7 @@
         <div v-else class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Load up some swapi data </div>
+                    <div class="card-header">Dramatis Personae</div>
 
                     <div class="card-body">
                         <b-list-group>
@@ -20,8 +20,10 @@
                             </b-list-group-item> 
                         </b-list-group>
                     </div>
-                    <b-button @click="getNextSwapiPeople()" variant="success">Button</b-button>
-
+                    <b-row class="justify-content-md-center">
+                        <b-button @click="getPrevSwapiPeople()" variant="success">Prev</b-button>
+                        <b-button @click="getNextSwapiPeople()" variant="success">Next</b-button>
+                    </b-row>
                 </div>
             </div>
         </div>
@@ -59,6 +61,19 @@
                 try {
                     const people = await api.getNextSwapiPeople(this.pageCount);
                     console.log("Next", people);
+                    this.people = people.data.results;
+                    this.loading = false;
+                } catch (err) {
+                    this.loading = false;
+                    throw new Error(err)
+                }
+            },
+            async getPrevSwapiPeople(){
+                this.pageCount--
+                if(this.pageCount <=1 ) this.pageCount == 1;
+                try {
+                    const people = await api.getNextSwapiPeople(this.pageCount);
+                    console.log("Prev", people);
                     this.people = people.data.results;
                     this.loading = false;
                 } catch (err) {
