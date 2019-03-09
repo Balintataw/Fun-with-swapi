@@ -36637,7 +36637,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Jossendal/Desktop/projects/fun-with-swapi/resources/js/bootstrap.js */"./resources/js/bootstrap.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/fun-with-swapi/resources/js/bootstrap.js */"./resources/js/bootstrap.js");
 
 
 /***/ })

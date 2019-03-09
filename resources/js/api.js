@@ -1,4 +1,5 @@
 import axios from 'axios';
+const BASE_URL = process.env.MIX_BASE_API_URL;
 
 export default {
     login(payload) {
@@ -10,7 +11,10 @@ export default {
     logout() {
         return axios.post('admin/logout');
     },
-    getSwapi() {
-        return axios.get('admin/me');
+    getSwapiPeople() {
+        return axios.get(`${BASE_URL}/people`);
+    },
+    getNextSwapiPeople(page) {
+        return axios.get(`${BASE_URL}/people/?page=${page}`);
     },
 }
