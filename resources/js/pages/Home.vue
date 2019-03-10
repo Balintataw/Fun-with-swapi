@@ -63,7 +63,7 @@
             <favorites 
                 v-model="favorites" 
                 :loading="loading" 
-                v-on:alert="showAlert = true; alertText = 'Success'"
+                v-on:save-success="saveSuccess"
                 v-on:deletion-successful="getFavorites" />
 
         </div>
@@ -115,6 +115,16 @@
             this.getSwapiPeople();
         },
         methods: {
+            async saveSuccess() {
+                this.alertText = 'Success';
+                this.showAlert = true; 
+                try {
+                    const favorites = await api.getFavorites();
+                    this.favorites = favorites.data
+                } catch(err) {
+                    throw new Error(err.message)
+                }
+            },
             showDetails(person) {
                 this.selectedPerson = person;
                 this.$refs.detailsmodal.showModal();

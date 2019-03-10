@@ -91,7 +91,12 @@ export default {
     },
     methods: {
         edit(person) {
-            this.editablePerson = person;
+            let tempPerson = {}
+            for(var prop in person) {
+                tempPerson[prop] = person[prop];
+            }
+            console.log(this.editablePerson)
+            this.editablePerson = tempPerson;
             this.$refs.editmodal.showModal();
         },
         async removeFavorite(id) {
@@ -107,7 +112,7 @@ export default {
             try {
                 const response = await api.updateFavorite(this.editablePerson);
                 this.$refs.editmodal.hideModal();
-                this.$emit('alert');
+                this.$emit('save-success');
             } catch (err) {
                 throw new Error(err.message);
             }

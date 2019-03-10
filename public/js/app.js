@@ -1798,11 +1798,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     hideModal: function hideModal() {
       this.$refs.myModalRef.hide();
-    },
-    toggleModal: function toggleModal() {
-      // We pass the ID of the button that we want to return focus to when
-      // the modal has hidden
-      this.$refs.myModalRef.toggle('#toggleBtn');
     }
   }
 });
@@ -1828,11 +1823,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -1924,7 +1914,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     edit: function edit(person) {
-      this.editablePerson = person;
+      var tempPerson = {};
+
+      for (var prop in person) {
+        tempPerson[prop] = person[prop];
+      }
+
+      console.log(this.editablePerson);
+      this.editablePerson = tempPerson;
       this.$refs.editmodal.showModal();
     },
     removeFavorite: function () {
@@ -1982,7 +1979,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 response = _context2.sent;
                 this.$refs.editmodal.hideModal();
-                this.$emit('alert');
+                this.$emit('save-success');
                 _context2.next = 11;
                 break;
 
@@ -2055,14 +2052,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-// import store from '@/js/store';
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2079,9 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$user.login(this.form).then(function () {
         _this.$router.replace('/home');
-      }); // this.$store.dispatch('login', this.form).then(() => {
-      //     this.$router.replace('/home');
-      // })
+      });
     },
     register: function register() {
       var _this2 = this;
@@ -2094,8 +2081,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       evt.preventDefault();
-      /* Reset our form values */
-
       this.form.email = '';
       this.form.password = '';
       /* Trick to reset/clear native browser form validation state */
@@ -2244,6 +2229,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getSwapiPeople();
   },
   methods: {
+    saveSuccess: function () {
+      var _saveSuccess = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var favorites;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.alertText = 'Success';
+                this.showAlert = true;
+                _context.prev = 2;
+                _context.next = 5;
+                return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getFavorites();
+
+              case 5:
+                favorites = _context.sent;
+                this.favorites = favorites.data;
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](2);
+                throw new Error(_context.t0.message);
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 9]]);
+      }));
+
+      function saveSuccess() {
+        return _saveSuccess.apply(this, arguments);
+      }
+
+      return saveSuccess;
+    }(),
     showDetails: function showDetails(person) {
       this.selectedPerson = person;
       this.$refs.detailsmodal.showModal();
@@ -2251,42 +2276,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getSwapiPeople: function () {
       var _getSwapiPeople = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var people, favorites;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getSwapiPeople();
 
               case 3:
-                people = _context.sent;
-                // console.log(people)
+                people = _context2.sent;
                 this.people = people.data.results;
-                _context.next = 7;
+                _context2.next = 7;
                 return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getFavorites();
 
               case 7:
-                favorites = _context.sent;
+                favorites = _context2.sent;
                 this.favorites = favorites.data;
                 this.loading = false;
-                _context.next = 16;
+                _context2.next = 16;
                 break;
 
               case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](0);
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](0);
                 this.loading = false;
-                throw new Error(_context.t0.message);
+                throw new Error(_context2.t0.message);
 
               case 16:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this, [[0, 12]]);
+        }, _callee2, this, [[0, 12]]);
       }));
 
       function getSwapiPeople() {
@@ -2298,48 +2322,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getNextSwapiPeople: function () {
       var _getNextSwapiPeople = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var people;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                this.loading = true;
-                this.pageCount++;
-                _context2.prev = 2;
-                _context2.next = 5;
-                return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getNextSwapiPeople(this.pageCount);
-
-              case 5:
-                people = _context2.sent;
-                this.people = people.data.results;
-                this.loading = false;
-                _context2.next = 14;
-                break;
-
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](2);
-                this.loading = false;
-                throw new Error(_context2.t0);
-
-              case 14:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this, [[2, 10]]);
-      }));
-
-      function getNextSwapiPeople() {
-        return _getNextSwapiPeople.apply(this, arguments);
-      }
-
-      return getNextSwapiPeople;
-    }(),
-    getPrevSwapiPeople: function () {
-      var _getPrevSwapiPeople = _asyncToGenerator(
-      /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var people;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -2347,13 +2329,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 this.loading = true;
-
-                if (this.pageCount <= 1) {
-                  this.pageCount == 1;
-                } else {
-                  this.pageCount--;
-                }
-
+                this.pageCount++;
                 _context3.prev = 2;
                 _context3.next = 5;
                 return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getNextSwapiPeople(this.pageCount);
@@ -2379,6 +2355,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, this, [[2, 10]]);
       }));
 
+      function getNextSwapiPeople() {
+        return _getNextSwapiPeople.apply(this, arguments);
+      }
+
+      return getNextSwapiPeople;
+    }(),
+    getPrevSwapiPeople: function () {
+      var _getPrevSwapiPeople = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var people;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                this.loading = true;
+
+                if (this.pageCount <= 1) {
+                  this.pageCount == 1;
+                } else {
+                  this.pageCount--;
+                }
+
+                _context4.prev = 2;
+                _context4.next = 5;
+                return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getNextSwapiPeople(this.pageCount);
+
+              case 5:
+                people = _context4.sent;
+                this.people = people.data.results;
+                this.loading = false;
+                _context4.next = 14;
+                break;
+
+              case 10:
+                _context4.prev = 10;
+                _context4.t0 = _context4["catch"](2);
+                this.loading = false;
+                throw new Error(_context4.t0);
+
+              case 14:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[2, 10]]);
+      }));
+
       function getPrevSwapiPeople() {
         return _getPrevSwapiPeople.apply(this, arguments);
       }
@@ -2388,25 +2412,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     addToFavorites: function () {
       var _addToFavorites = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(person) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(person) {
         var _this = this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].addToFavorites(person).then(function (resp) {
                   return _this.getFavorites();
                 }).catch(function (err) {
-                  console.log("DONEERR", err);
+                  console.log(err);
                 });
 
               case 1:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }));
 
       function addToFavorites(_x) {
@@ -2418,33 +2442,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getFavorites: function () {
       var _getFavorites = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         var favorites;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
+                _context6.prev = 0;
+                _context6.next = 3;
                 return _js_api__WEBPACK_IMPORTED_MODULE_3__["default"].getFavorites();
 
               case 3:
-                favorites = _context5.sent;
+                favorites = _context6.sent;
                 this.favorites = favorites.data;
-                _context5.next = 10;
+                _context6.next = 10;
                 break;
 
               case 7:
-                _context5.prev = 7;
-                _context5.t0 = _context5["catch"](0);
-                throw new Error(_context5.t0.message);
+                _context6.prev = 7;
+                _context6.t0 = _context6["catch"](0);
+                throw new Error(_context6.t0.message);
 
               case 10:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this, [[0, 7]]);
+        }, _callee6, this, [[0, 7]]);
       }));
 
       function getFavorites() {
@@ -2456,24 +2480,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     searchSwapiPeople: function () {
       var _searchSwapiPeople = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(term) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(term) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                this.showAlert = true; // try {
-                //     const results = await api.searchSwapiPeople(term);
-                //     console.log("RES", results);
-                // } catch (err) {
-                //     throw new Error(err.message);
-                // }
+                this.alertText = "Coming Soon!";
+                this.showAlert = true;
 
-              case 1:
+              case 2:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
       function searchSwapiPeople(_x2) {
@@ -27993,9 +28013,9 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                        " +
+                                          "\n                            " +
                                             _vm._s(person.name) +
-                                            "\n                            "
+                                            "\n                        "
                                         )
                                       ]
                                     ),
@@ -28062,9 +28082,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "mt-2" }, [
-                _vm._v("Mass: " + _vm._s(_vm.editablePerson.mass))
-              ]),
+              _c("div", { staticClass: "mt-2" }, [_vm._v("Mass:")]),
               _vm._v(" "),
               _c("b-form-input", {
                 attrs: { type: "text" },
@@ -28077,9 +28095,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "mt-2" }, [
-                _vm._v("Height: " + _vm._s(_vm.editablePerson.height))
-              ]),
+              _c("div", { staticClass: "mt-2" }, [_vm._v("Height:")]),
               _vm._v(" "),
               _c("b-form-input", {
                 attrs: { type: "text" },
@@ -28562,10 +28578,7 @@ var render = function() {
           _c("favorites", {
             attrs: { loading: _vm.loading },
             on: {
-              alert: function($event) {
-                _vm.showAlert = true
-                _vm.alertText = "Success"
-              },
+              "save-success": _vm.saveSuccess,
               "deletion-successful": _vm.getFavorites
             },
             model: {
@@ -44457,7 +44470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var BASE_SWAPI_API_URL = "https://swapi.co/api";
-var BASE_URL = Object({"MIX_BASE_API_URL":"https://swapi.co/api","MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).MIX_BASE_URL; // const BASE_URL = "http://swapi.test";
+var BASE_URL = "http://swapi.test"; // const BASE_URL = "http://swapi.test";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   login: function login(payload) {
@@ -44925,9 +44938,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }]
 });
 router.beforeEach(function (to, from, next) {
-  // you could define your own authentication logic with token
   var isAuthenticated = _js_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.isAuthenticated;
-  console.log("AUTH?", isAuthenticated); // check route meta if it requires auth or not
+  console.log("AUTH?", isAuthenticated);
 
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
