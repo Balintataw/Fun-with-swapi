@@ -23,11 +23,9 @@ export default {
         hideModal() {
             this.$refs.myModalRef.hide()
         },
-        toggleModal() {
-            // We pass the ID of the button that we want to return focus to when
-            // the modal has hidden
-            this.$refs.myModalRef.toggle('#toggleBtn')
-        }
+        // toggleModal() {
+        //     this.$refs.myModalRef.toggle('#toggleBtn')
+        // }
     }
 }
 </script>

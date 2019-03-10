@@ -15,7 +15,6 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 localVue.use(UserPlugin);
-// jest.mock('axios');
 
 describe('App', () => {
     const $user = { email: 'test@mail.com' };

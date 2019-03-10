@@ -122,10 +122,9 @@
             async getSwapiPeople() {
                 try {
                     const people = await api.getSwapiPeople();
-                    // console.log(people)
                     this.people = people.data.results;
                     const favorites = await api.getFavorites();
-                    this.favorites = favorites.data
+                    this.favorites = favorites.data;
 
                     this.loading = false;
                 } catch(err) {
@@ -142,7 +141,7 @@
                     this.loading = false;
                 } catch (err) {
                     this.loading = false;
-                    throw new Error(err)
+                    throw new Error(err);
                 }
             },
             async getPrevSwapiPeople(){
@@ -150,7 +149,7 @@
                 if(this.pageCount <=1 ) {
                     this.pageCount == 1;
                 } else {
-                    this.pageCount--
+                    this.pageCount--;
                 }
                 try {
                     const people = await api.getNextSwapiPeople(this.pageCount);
@@ -165,7 +164,7 @@
                 api.addToFavorites(person).then(resp => {
                     return this.getFavorites();
                 }).catch(err => {
-                    console.log("DONEERR", err)
+                    console.log(err)
                 })
             },
             async getFavorites() {
@@ -177,13 +176,8 @@
                 }
             },
             async searchSwapiPeople(term) {
+                this.alertText = "Coming Soon!";
                 this.showAlert = true;
-                // try {
-                //     const results = await api.searchSwapiPeople(term);
-                //     console.log("RES", results);
-                // } catch (err) {
-                //     throw new Error(err.message);
-                // }
             }
         }
     }

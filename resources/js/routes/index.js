@@ -17,10 +17,9 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    // you could define your own authentication logic with token
     let isAuthenticated = store.getters.isAuthenticated
     console.log("AUTH?", isAuthenticated)
-    // check route meta if it requires auth or not
+
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
             next({

@@ -22,7 +22,7 @@ export default {
     },
     searchSwapiPeople(term) {
         // api isnt directly searchable by name, only id, deferred
-        return axios.get(`${BASE_SWAPI_API_URL}/people/`)
+        return axios.get(`${BASE_SWAPI_API_URL}/people/`);
     },
     addToFavorites(person) {
         return axios.post(`/api/favorites/create`, person).then(resp => {

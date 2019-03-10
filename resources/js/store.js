@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue     from 'vue';
+import Vuex    from 'vuex';
 import Storage from 'vue-web-storage';
+
 import api from '@/js/api';
 
 Vue.use(Vuex);

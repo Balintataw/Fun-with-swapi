@@ -29,8 +29,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // JWTAuth appears to be broken in Laravel 5.8
         $user = User::where('email', $request->email)->first();
-        // $token = $user->token;
         // $token = JWTAuth::attempt($credentials);
         // if (!$token) {
         //     return response([

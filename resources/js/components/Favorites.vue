@@ -19,12 +19,7 @@
                         :key="person.name">
                         <div class="d-flex justify-content-between align-items-center">
                             <span style="width:85%" @click.prevent="edit(person)">
-                            {{ person.name }}
-                                <!-- <i 
-                                    @click="edit(person)" 
-                                    class="fas fa-pen" 
-                                    style="cursor:pointer;">
-                                </i> -->
+                                {{ person.name }}
                             </span>
                                 <i 
                                     @click.prevent="removeFavorite(person.id)" 
@@ -46,9 +41,9 @@
                 <b-form-input v-model="editablePerson.name" type="text" />
                 <div class="mt-2">Hair Color:</div>
                 <b-form-input v-model="editablePerson.hair_color" type="text" />
-                <div class="mt-2">Mass: {{ editablePerson.mass }}</div>
+                <div class="mt-2">Mass:</div>
                 <b-form-input v-model="editablePerson.mass" type="text" />
-                <div class="mt-2">Height: {{ editablePerson.height }}</div>
+                <div class="mt-2">Height:</div>
                 <b-form-input v-model="editablePerson.height" type="text" />
             </div>
 
