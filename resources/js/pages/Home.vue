@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <b-alert v-model="showAlert" dismissible style="position:absolute; top:65px; right:50px;">{{ alertText }}</b-alert>
+        <button style="display:hidden" @click="getSwapiPeople()"></button>
         <b-nav-form style="margin-top:15px;">
             <b-form-input v-model="searchTerm" size="sm" class="mr-sm-2" type="text" placeholder="Search" />
             <b-button size="sm" class="my-2 my-sm-0" @click="searchSwapiPeople()">Search</b-button>
@@ -17,7 +18,7 @@
                         <div v-else-if="people.length === 0">
                             <em>No data available</em>
                         </div>
-                        <b-list-group v-else>
+                        <b-list-group v-else class="testref">
                             <b-list-group-item 
                                 href="#" 
                                 v-for="(person) in people" 
