@@ -15,3 +15,7 @@
 Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
 
 // Route::post('/admin/login', 'Admin\AdminAuthController@login');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

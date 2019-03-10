@@ -1,11 +1,14 @@
 <template>
     <div class="container">
         <b-alert v-model="showAlert" dismissible style="position:absolute; top:65px; right:50px;">{{ alertText }}</b-alert>
-        <button style="display:hidden" @click="getSwapiPeople()"></button>
+        <!-- this button is me trying to test the swapi api response, poorly -->
+        <button id="test-button" @click="getSwapiPeople()"></button>
+
         <b-nav-form style="margin-top:15px;">
             <b-form-input v-model="searchTerm" size="sm" class="mr-sm-2" type="text" placeholder="Search" />
             <b-button size="sm" class="my-2 my-sm-0" @click="searchSwapiPeople()">Search</b-button>
         </b-nav-form>
+
         <div class="row" style="margin-top:20px;">
             <div class="col-md-6">
                 <div class="card">
@@ -24,7 +27,9 @@
                                 v-for="(person) in people" 
                                 :key="person.name">
                                 <div class="d-flex w-100 justify-content-between align-items-center">
-                                    {{ person.name }}
+                                    <span style="width:85%" @click.prevent="showDetails(person)">
+                                        {{ person.name }}
+                                    </span>
                                     <i 
                                         v-b-tooltip.hover :title="`Add ${person.name} to Favorites`"
                                         @click="addToFavorites(person)" 
@@ -38,7 +43,7 @@
                     <b-row align-h="center" style="margin-bottom:20px;">
                         <b-col cols="4" style="z-index:5;">
                             <b-row align-h="center">
-                                <b-button @click="getPrevSwapiPeople()" variant="success">Prev</b-button>
+                                <b-button @click="getPrevSwapiPeople()" :disabled="pageCount == 1" variant="success">Prev</b-button>
                             </b-row>
                         </b-col>
                         <b-col cols="4" style="z-index:5;">
@@ -62,16 +67,36 @@
                 v-on:deletion-successful="getFavorites" />
 
         </div>
+
+        <edit-modal ref="detailsmodal">
+            <h1 slot="header">{{ selectedPerson.name }}</h1>
+
+            <div slot="content">
+                <div class="mt-2">Name: {{ selectedPerson.name }}</div>
+                <div class="mt-2">Hair Color: {{ selectedPerson.hair_color }}</div>
+                <div class="mt-2">Mass: {{ selectedPerson.mass }}</div>
+                <div class="mt-2">Height: {{ selectedPerson.height }}</div>
+            </div>
+
+            <b-button 
+                slot="buttonleft" 
+                class="mt-3" 
+                variant="outline-danger" 
+                @click="$refs.detailsmodal.hideModal()">Close</b-button>
+        </edit-modal>
+
     </div>
 </template>
 
 <script>
     import Favorites from '@/js/components/Favorites.vue';
+    import EditModal from '@/js/components/EditModal.vue';
 
     import api from '@/js/api';
 
     export default {
         components: {
+            'edit-modal' : EditModal,
             'favorites' : Favorites,
         },
         data() {
@@ -82,17 +107,22 @@
                 pageCount: 1,
                 searchTerm: '',
                 showAlert: false,
-                alertText: 'Coming Soon'
+                alertText: 'Coming Soon',
+                selectedPerson: {}
             }
         },
         mounted() {
             this.getSwapiPeople();
         },
         methods: {
+            showDetails(person) {
+                this.selectedPerson = person;
+                this.$refs.detailsmodal.showModal();
+            },
             async getSwapiPeople() {
                 try {
                     const people = await api.getSwapiPeople();
-                    console.log(people)
+                    // console.log(people)
                     this.people = people.data.results;
                     const favorites = await api.getFavorites();
                     this.favorites = favorites.data
@@ -117,8 +147,11 @@
             },
             async getPrevSwapiPeople(){
                 this.loading = true;
-                this.pageCount--
-                if(this.pageCount <=1 ) this.pageCount == 1;
+                if(this.pageCount <=1 ) {
+                    this.pageCount == 1;
+                } else {
+                    this.pageCount--
+                }
                 try {
                     const people = await api.getNextSwapiPeople(this.pageCount);
                     this.people = people.data.results;
@@ -155,3 +188,8 @@
         }
     }
 </script>
+<style scoped>
+#test-button {
+    display:hidden !important;
+}
+</style>

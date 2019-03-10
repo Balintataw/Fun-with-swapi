@@ -1,18 +1,16 @@
 <template>
-    <b-modal ref="myModalRef" hide-footer title="Edit Favorite">
+    <b-modal ref="myModalRef" hide-footer title="Favorite">
         <!-- <div class="d-block text-left">
             <slot name="header" />
         </div> -->
         <slot name="content" />
         <b-row align-h="end" style="margin-right:20px;">
-        <!-- <b-btn-group style="margin-right:20px;"> -->
             <span>
                 <slot name="buttonleft" />
             </span>
             <span style="margin-left:10px;">
                 <slot name="buttonright" />
             </span>
-        <!-- </b-btn-group> -->
         </b-row>
     </b-modal>
 </template>

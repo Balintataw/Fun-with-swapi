@@ -1,7 +1,7 @@
 <template>
-    <div class="col-md-6">
+    <div class="col-md-6 testref">
         <div class="card">
-            <div class="card-header">Ventus Personae</div>
+            <div class="card-header">Ventus Personae<small style="float:right; vertical-align: middle;">click to edit</small></div>
 
             <div class="card-body">
                 <div v-if="loading" class="text-center">
@@ -39,13 +39,17 @@
         </div>
 
         <edit-modal ref="editmodal">
-            <h1 slot="header">{{ editablePerson.name }}</h1>
+            <!-- <h1 slot="header">{{ editablePerson.name }}</h1> -->
 
             <div slot="content">
                 <div class="mt-2">Name:</div>
                 <b-form-input v-model="editablePerson.name" type="text" />
                 <div class="mt-2">Hair Color:</div>
                 <b-form-input v-model="editablePerson.hair_color" type="text" />
+                <div class="mt-2">Mass: {{ editablePerson.mass }}</div>
+                <b-form-input v-model="editablePerson.mass" type="text" />
+                <div class="mt-2">Height: {{ editablePerson.height }}</div>
+                <b-form-input v-model="editablePerson.height" type="text" />
             </div>
 
             <b-button 

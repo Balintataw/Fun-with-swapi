@@ -2,30 +2,17 @@
     <div>
         <!-- Navbars to nowhere!!!! -->
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="#">Swapi!</b-navbar-brand>
+            <b-navbar-brand href="#">Swapi</b-navbar-brand>
 
-            <b-navbar-toggle target="nav_collapse" />
+            <b-navbar-toggle v-if="$user && $user.isAuthenticated" target="nav_collapse" />
 
             <b-collapse is-nav id="nav_collapse">
-                <!-- <b-navbar-nav>
-                    <b-nav-item href="#">Link</b-nav-item>
-                    <b-nav-item href="#" disabled>Disabled</b-nav-item>
-                </b-navbar-nav> -->
-
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item-dropdown text="Lang" right>
-                    <b-dropdown-item href="#">EN</b-dropdown-item>
-                    <b-dropdown-item href="#">ES</b-dropdown-item>
-                    <b-dropdown-item href="#">RU</b-dropdown-item>
-                    <b-dropdown-item href="#">FA</b-dropdown-item>
-                    </b-nav-item-dropdown>
-
                     <b-nav-item-dropdown right>
                     <!-- Using button-content slot -->
-                    <template slot="button-content"><em>User</em></template>
-                    <b-dropdown-item href="#">Profile</b-dropdown-item>
-                    <b-dropdown-item href="#">Signout</b-dropdown-item>
+                    <template slot="button-content"><em>{{ $user.email ? $user.email : 'User' }}</em></template>
+                    <b-dropdown-item href="#" @click="logout">Signout</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -37,5 +24,12 @@
 </template>
 <script>
 export default {
+    methods: {
+        logout() {
+            this.$user.logout().then((r) => {
+                this.$router.replace('/auth');
+            })
+        }
+    }
 }
 </script>
