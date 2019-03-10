@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('favorites', 'FavoriteController@index');
+Route::post('favorites/create', 'FavoriteController@store');
+Route::post('favorites/delete/{id}', 'FavoriteController@destroy');
+Route::post('favorites/update/{id}', 'FavoriteController@update');
